@@ -1,32 +1,40 @@
 # Project3-Census
 
-* Topic
+# Topic
 
-* Dataset
-** API call 1 : Insurance data by county (2 years) (https://www.census.gov/data/developers/data-sets/Health-Insurance-Statistics.html) 
-*** API information: api.census.gov/data/timeseries/healthins/sahie.html
-*** Geography: api.census.gov/data/timeseries/healthins/sahie/geography.html
-*** Variables: api.census.gov/data/timeseries/healthins/sahie/variables.html
+# Dataset
+* [API call 1 - : Insurance data by county 2 years](https://www.census.gov/data/developers/data-sets/Health-Insurance-Statistics.html) 
+* [API information](api.census.gov/data/timeseries/healthins/sahie.html)
+* [Geography](api.census.gov/data/timeseries/healthins/sahie/geography.html)
+* [Variables](api.census.gov/data/timeseries/healthins/sahie/variables.html)
 
-** API Call 2: Population data by county (corresponding to 2 years in API call 1)
+* [API Call 2: Population data by county (corresponding to 2 years in API call 1)](http://)
 
-** API Call 3: Income data by county (corresponding to 2 years in API call 1)
+## API Call 3: Income data by county (corresponding to 2 years in API call 1)
 
-** API Call 4: Death rate by county (corresponding to 2 years in API call 1)
+## API Call 4: Death rate by county (corresponding to 2 years in API call 1)
+
+## Geo-coding of state-county
+## Explore to gather data in geo-json format. If not convert api data to geo json
 
 Inspiration
 
 Visuals
 
-
 Proposal
-- Database (MongoDB)
 - param_config_file
     - Capture the mongodb db name
     - endpoints
     - flask site port
-- Initialize database with api calls to feed the starter data 
-- ETL routines to clean up and merge data for rendering
+
+- Geo coding data for (State,county)
+- INSU_DATA / API Call 1 ("Insured","Un-insured","State","County" "Year", "lat","lon")
+- POP_DATA / API Call 2 ("Population_Count","State","County","Year","lat","lon")
+- INCO_DATA / API Call 3 ("Income","State","County","Year","lat","lon")
+- DEATH_DATA / API Call 4 ("Death_count","State","County","Year","lat","lon")
+- Database (MongoDB) (for each dataset)
+- ETL routines to clean up and merge data for rendering into starter database
+- Initialize database with api calls to feed the starter database
 - Build a Python flask service layer to initialize the map rendering with dataset from mongoDB
 - Incorporate leaflets / plotly to enable user interaction with the data visualization
 
