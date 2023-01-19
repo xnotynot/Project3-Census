@@ -20,3 +20,14 @@ Visuals
 
 
 Proposal
+- Database (MongoDB)
+- param_config_file
+    - Capture the mongodb db name
+    - endpoints
+    - flask site port
+- Initialize database with api calls to feed the starter data 
+- ETL routines to clean up and merge data for rendering
+- Build a Python flask service layer to initialize the map rendering with dataset from mongoDB
+- Incorporate leaflets / plotly to enable user interaction with the data visualization
+
+
