@@ -32,10 +32,10 @@ Proposal
 - POP_DATA / API Call 2 ("Population_Count","State","County","Year","lat","lon")
 - INCO_DATA / API Call 3 ("Income","State","County","Year","lat","lon")
 - DEATH_DATA / API Call 4 ("Death_count","State","County","Year","lat","lon")
-- Database (MongoDB) (for each dataset)
+- Database (MongoDB) (for each dataset) (refer to module 12-1)
 - ETL routines to clean up and merge data for rendering into starter database
 - Initialize database with api calls to feed the starter database
-- Build a Python flask service layer to initialize the map rendering with dataset from mongoDB
+- Build a Python flask service layer to initialize the map rendering with dataset from mongoDB (refer to module 10-3 flask)
 - Incorporate leaflets / plotly to enable user interaction with the data visualization
 
 
