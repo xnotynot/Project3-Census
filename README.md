@@ -15,6 +15,7 @@
 ## API Call 4: Death rate by county (corresponding to 2 years in API call 1)
 
 ## Geo-coding of state-county
+* [Geo-Coding data](https://eric.clst.org/tech/usgeojson/)
 ## Explore to gather data in geo-json format. If not convert api data to geo json
 
 Inspiration
