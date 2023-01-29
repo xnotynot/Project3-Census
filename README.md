@@ -40,3 +40,12 @@ Proposal
 - Incorporate leaflets / plotly to enable user interaction with the data visualization
 
 
+- Read data via api using python and imported it into MongoDB
+- Imported data from flat files into json
+- created indexes on mongo db for quicker access by state and county fips
+- used python scripts to merge datasets about counties 
+- mongodb cannot accept numbers as key
+- if you are using plotly the scripts go at the end so the javascript engine can see the DOM elements
+- Just when you thought there is not enough charting engines.. there is MongoDB charts - https://www.mongodb.com/products/charts
+
+

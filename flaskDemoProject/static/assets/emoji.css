@@ -1,0 +1,6 @@
+
+/* Override any img styles to ensure Emojis are displayed inline */
+img.emoji {
+    margin: 0px !important;
+    display: inline !important
+  }

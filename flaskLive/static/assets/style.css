@@ -1,0 +1,59 @@
+.box {
+  min-height: 50px;
+  padding: 5px;
+  margin: 5px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.header {
+  background: #333;
+  padding: 10px 0;
+  margin: 1;
+  margin-bottom: 1px;
+  font-size: 28px;
+  color: #eee;
+  text-align: center;
+}
+.contributors{
+  background: rgba(247, 248, 248, 0.938);
+  padding: 5px 5px;
+  margin: 5;
+  font-size: 15px;
+  color: rgb(25, 2, 2);
+  text-align: right;
+  line-height: 12%;
+  margin-bottom: 1px;
+}
+
+.abstract{
+  background: rgba(220, 218, 218, 0.938);
+  padding: 5px 5px;
+  margin: 5;
+  font-size: 15px;
+  color: rgb(25, 2, 2);
+  text-align: left;
+  line-height: 12%;
+  margin-bottom: 1px;
+}
+
+/* Set map, body, and html to 100% of the screen size. */
+#map {
+  position: relative;
+  border: 1px solid black;
+  border-radius: 8px;
+  height: 400px;  /* or as desired */
+  width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
+}
+
+.dropdown-menu {         
+  max-height: 200px;
+  overflow-y: auto;
+}
+.purple {
+  background: rebeccapurple;
+}
+
+.red {
+  background: indianred;
+}

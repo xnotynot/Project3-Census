@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{t}}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+  <!-- Leaflet JavaScript code -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+
+  <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Custom style sheets -->
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+
+  <!-- D3 Library -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- MDB -->
+  <scripttype="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <!--Project Header-->
+  <div class="container">
+    <div class="box header">{{ h }}</div>
+        <!--Contributors-->
+      <!-- <div class="row">
+        <div class="col-3 col-sm-6 col-md-12">
+        <div class="box contributors">
+                <img src="{{ url_for('static',filename='assets/header_img.jpg')}}" class="img-fluid">
+            </div>
+        </div>
+      </div> -->
+      <!--Abstract-->
+      <div class="row">
+        <div class="col-sm-6 col-md-9">
+          <div class="box abstract">
+              <h5>Data, Backend and Visualization components:</h5>
+              <p><li>Insurance, population and percapita income data from data.census.gov using APIs called via Python</li></p>
+              <p><li>Data formated and stored in MongoDb as JSON objects using python's pymongo package</li></p>
+              <p><li>Backend - HTML served via Flask using javascript libraries</li></p>
+              <p><li>Visualization - Leaflet and Plotly libraries</li></p>
+          </div>
+        </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="box contributors">
+                <p></p>
+                <p><u>Contributors</u></p>
+                <p>Anand Shankar</p>
+                <p>Cara Monastra</p>
+                <p>Rainier Radkowski</p>
+                <p>Sulman Choudhary</p>
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="row"><p></p></div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Overview</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="allstates-tab" data-bs-toggle="tab" data-bs-target="#allstates" type="button" role="tab" aria-controls="allstates" aria-selected="false">All States</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="plotly-tab" data-bs-toggle="tab" data-bs-target="#plotly" type="button" role="tab" aria-controls="plotly" aria-selected="false">Plotly</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false">Filters</button>
+      </li>
+    </ul>
+    <div class="row"><p></p></div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="h-100 p-5 text-white bg-info rounded-3">
+              <p>Total Population</p>
+              <h3>{{total_pop}}</h3>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="h-100 p-5 bg-success border rounded-3">
+              <p>Total Insured</p>
+              <h3>{{total_insured}}</h3>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="h-100 p-5 bg-danger border rounded-3">
+              <p>Total UnInsured</p>
+              <h3>{{total_uninsured}}</h3>
+            </div>
+          </div>      
+          <div class="col-md-3">
+            <div class="h-100 p-5 bg-light border rounded-3">
+              <p>Total Unknown</p>
+              <h3>{{total_unknown}}</h3>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+<!-- OVER VIEW PLOT -->
+      <div class="tab-pane fade" id="allstates" role="tabpanel" aria-labelledby="allstates-tab">
+          <div class="col-3 col-sm-6 col-md-12" style='border: 1px solid rgb(249, 248, 248)'>
+              <div id="map"></div>
+          </div>
+      </div>
+
+      <div class="tab-pane fade" id="plotly" role="tabpanel" aria-labelledby="plotly-tab">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Population Data
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div id="mapPlotly1"></div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Insurance Data
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div id="mapPlotly2"></div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Income Data
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div id="mapPlotly3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
+          {% include 'header.html' %}
+          <p></p>
+          <div class="col-md-6">
+            <form method="POST" id="state_select_form" action="/state">
+                <select name="state_pick" class="form-control selectpicker">
+                  {% for state in states[1:] %}
+                  {% if state == state_pick %}
+                  <option value="{{state}}" selected={{state_pick}}>{{state}}</option>
+                  {% else %}
+                  <option value="{{state}}">{{state}}</option>        
+                  {% endif %}
+                  {% endfor %}
+                </select>
+              <button type="submit" >Submit!</button>    
+                <!-- <input type="submit" name="submit" class="btn btn-info" value="Submit" /> -->
+            </form>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary">{{state_pick}}</button>
+        </div>
+      </div>
+    </div>
+</div>
+    <!-- {% if states %}
+      <form method="POST" action="/state">
+        <div class="btn-group">
+                <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    State
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for state in states[1:] %}
+                    {% if state == state_pick %}
+                          <button name = "state" value = {{state}} class="dropdown-item text-left " type="button">{{state}} selected </button>
+                    {% else %}
+                          <button name="state_pick" value = {{state}} class="dropdown-item text-left " type="button">{{state}} </button>
+                     {% endif %}
+                        <a class="dropdown-item" href="#">{{state}}</a>
+                {% endfor %}
+              </div>
+        </div>
+      </form>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary">{{selected_state}}</button>
+      </div> -->
+    <!-- {% else %} -->
+        <!-- <h4>No Tasks in the List !!</h4> -->
+    <!-- {% endif %} -->
+    <!--Map-->
+  <!-- <script>                debugger;</script> -->
+  <script type="text/javascript">
+    let plot1_name = 'Population Data'
+    let Plot1_title = `Population Comparison Data`
+    let layout1 = { title: Plot1_title }    
+    // var graph1 = {{ total_pop_plotlyJSON | safe }};
+    Plotly.Plot("mapPlotly1",total_pop_plotlyJSON, layout1);
+</script>  
+  <!-- <script src="{{ url_for('static',filename='assets/plotlydraw.js')}}"></script>   -->
+  <script src="{{ url_for('static',filename='assets/basemap.js')}}"></script>        
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
