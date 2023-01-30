@@ -14,6 +14,10 @@ app = Flask(__name__)
 title = "Project 3 - Data and Visualization"
 heading = "Insurance Data Analysis"
 
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+json_map_url = os.path.join(SITE_ROOT, "static/assets", "FinalData.json")
+map_dataJSON = json.load(open(json_map_url))
+
 client = MongoClient(Mongoserver)
 db = client["CensusData"]
 
@@ -47,10 +51,15 @@ total_unknown = total_population - (total_insured + total_uninsured)
 
 #Plotly Data
 total_pop_plotly_df = DataFrame(list(db.popincome_data.aggregate(
-    [{"$group": { "_id": "Year", "TotalPop": { "$sum": "$Population"}}}])))
+    [{"$group": { "_id": "$Year", "TotalPop": { "$sum": "$Population"}}}])))
+pop_fig = px.bar(total_pop_plotly_df, x="_id", y="TotalPop", barmode="stack")
 
-fig1 = px.bar(total_pop_plotly_df, x="_id", y="TotalPop", barmode="stack")
-total_pop_plotlyJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
+total_pinco_plotly_df = DataFrame(list(db.popincome_data.aggregate(
+    [{"$group": { "_id": "$Year", "PerCapitaIncome": { "$sum": "$Per Capita Income"}}}])))
+pinco_fig = px.bar(total_pinco_plotly_df, x="_id", y="PerCapitaIncome", barmode="stack")
+
+total_pop_plotlyJSON = json.dumps(pop_fig, cls=plotly.utils.PlotlyJSONEncoder)
+total_pinco_plotlyJSON = json.dumps(pinco_fig,cls=plotly.utils.PlotlyJSONEncoder)
 
 #Get County GeoJson
 counties = db.counties_geocoding
@@ -72,7 +81,9 @@ def tasks ():
                             total_insured=total_insured,
                             total_uninsured=total_uninsured,
                             total_unknown = total_unknown,
-                            total_pop_plotlyJSON = total_pop_plotlyJSON)
+                            total_pop_plotlyJSON = total_pop_plotlyJSON,
+                            total_pinco_plotlyJSON=total_pinco_plotlyJSON,
+                            map_dataJSON = map_dataJSON)
 
 @app.route('/state', methods=['POST', 'GET'])
 def switch_state():

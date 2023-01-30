@@ -9,24 +9,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+  
+    <!-- Leaflet JavaScript code -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+  
+    <!-- D3 Library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+​
+    <!-- leaflet-choropleth JavaScript -->
+    <script type="text/javascript" src="../static/js/choropleth.js"></script>
+​
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
-  <!-- Leaflet JavaScript code -->
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
-
-  <!-- Plotly -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <!-- Custom style sheets -->
   <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
 
-  <!-- D3 Library -->
-  <script src="https://d3js.org/d3.v5.min.js"></script>
 
   <!-- MDB -->
   <scripttype="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
@@ -120,48 +124,61 @@
             </div>
           </div>
         </div>  
+        <table id="table"
+              data-toggle="table"
+               data-toolbar="#toolbar"
+               data-height="460">
+            <thead>
+            <tr>
+                <th data-field="id">Item ID</th>
+                <th data-field="name">Item Name</th>
+                <th data-field="price">Item Price</th>
+            </tr>
+          </thead>
+        </table>
       </div>
 
 <!-- OVER VIEW PLOT -->
       <div class="tab-pane fade" id="allstates" role="tabpanel" aria-labelledby="allstates-tab">
+        <div class="row">
           <div class="col-3 col-sm-6 col-md-12" style='border: 1px solid rgb(249, 248, 248)'>
               <div id="map"></div>
           </div>
       </div>
 
       <div class="tab-pane fade" id="plotly" role="tabpanel" aria-labelledby="plotly-tab">
-        <div class="accordion" id="accordionExample">
+        <div class="accordion" id="accordionPlotly">
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                 Population Data
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
               <div class="accordion-body">
                 <div id="mapPlotly1"></div>
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                 Insurance Data
               </button>
             </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
               <div class="accordion-body">
                 <div id="mapPlotly2"></div>
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                 Income Data
               </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
               <div class="accordion-body">
                 <div id="mapPlotly3"></div>
               </div>
@@ -193,6 +210,7 @@
       </div>
     </div>
 </div>
+</body>
     <!-- {% if states %}
       <form method="POST" action="/state">
         <div class="btn-group">
@@ -219,16 +237,28 @@
     <!-- {% endif %} -->
     <!--Map-->
   <!-- <script>                debugger;</script> -->
+    <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script type="text/javascript">
+    // Population data
     let plot1_name = 'Population Data'
     let Plot1_title = `Population Comparison Data`
-    let layout1 = { title: Plot1_title }    
-    // var graph1 = {{ total_pop_plotlyJSON | safe }};
-    Plotly.Plot("mapPlotly1",total_pop_plotlyJSON, layout1);
-</script>  
+    let layout1 = {title: Plot1_title };
+    var graph1 = {{total_pop_plotlyJSON | safe}};
+    Plotly.plot('mapPlotly1',graph1,layout1);
+// Per capita income
+    let plot2_name = 'Population Data'
+    let Plot2_title = `Population Comparison Data`
+    let layout2 = {title: Plot2_title };
+    var graph2 = {{total_pinco_plotlyJSON | safe}};
+    Plotly.plot('mapPlotly2',graph2,layout2);
+  </script>  
+  <script type="text/javascript" src="{{ url_for('static',filename='assets/mapLogic.js')}}"></script>  
+  <script type="text/javascript">
+    map_JSdataJSON = drawLeaflet({{ map_dataJSON | tojson }})
+  </script>
   <!-- <script src="{{ url_for('static',filename='assets/plotlydraw.js')}}"></script>   -->
   <script src="{{ url_for('static',filename='assets/basemap.js')}}"></script>        
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
 </html>
